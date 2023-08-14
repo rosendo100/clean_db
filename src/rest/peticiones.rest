@@ -1,0 +1,24 @@
+POST http://localhost:3000/api/author
+content-type: application/json
+
+{
+    "firstName": "name1001",
+    "lastName": "last1001"
+}
+
+### get
+GET  http://localhost:3000/api/author
+content-type: application/json
+
+### get ID
+GET  http://localhost:3000/api/author/6
+content-type: application/json
+
+###
+PUT http://localhost:3000/api/author/1
+content-type: application/json
+
+{
+    "firstName": "name300",
+    "lastName": "last300"
+}

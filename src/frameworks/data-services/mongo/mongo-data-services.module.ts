@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { IDataServices } from '../../../core';
-import { DATA_BASE_CONFIGURATION } from '../../../configuration';
 import {
   Author,
   AuthorSchema,
@@ -11,6 +12,11 @@ import {
   GenreSchema,
 } from './model';
 import { MongoDataServices } from './mongo-data-services.service';
+import { DATA_BASE_CONFIGURATION } from '../../configuration';
+
+console.log("🚀 ~ DB:", process.env.CLEAN_NEST_MONGO_CONNECTION_STRING)
+console.log("🚀 ~ file: mongo-data-services.module.ts:16 ~ DATA_BASE_CONFIGURATION:", DATA_BASE_CONFIGURATION.mongoConnectionString)
+
 
 @Module({
   imports: [
@@ -19,7 +25,8 @@ import { MongoDataServices } from './mongo-data-services.service';
       { name: Book.name, schema: BookSchema },
       { name: Genre.name, schema: GenreSchema },
     ]),
-    MongooseModule.forRoot(DATA_BASE_CONFIGURATION.mongoConnectionString),
+    MongooseModule.forRoot(DATA_BASE_CONFIGURATION.mongoConnectionString, {
+      dbName: 'custom_db_name',}),
   ],
   providers: [
     {
@@ -29,4 +36,9 @@ import { MongoDataServices } from './mongo-data-services.service';
   ],
   exports: [IDataServices],
 })
-export class MongoDataServicesModule {}
+export class MongoDataServicesModule {
+  constructor(
+    private readonly configService: ConfigService,
+  ) {
+  }
+}

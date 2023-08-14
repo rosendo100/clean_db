@@ -1,18 +1,22 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import {
   AppController,
-  BookController,
-  AuthorController,
-  GenreController,
-} from './controllers';
-import { DataServicesModule } from './services/data-services/data-services.module';
-import { BookUseCasesModule } from './use-cases/book/book-use-cases.module';
-import { AuthorUseCasesModule } from './use-cases/author/author-use-cases.module';
-import { GenreUseCasesModule } from './use-cases/genre/genre-use-cases.module';
+} from './app.controller';
+import { DataServicesModule } from './frameworks/data-services';
+
+import { BookUseCasesModule } from './book/book.module';
+import { AuthorUseCasesModule } from './author/author.module';
+import { GenreUseCasesModule } from './genre/genre.module';
+
 import { CrmServicesModule } from './services/crm-services/crm-services.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true
+    }),
     DataServicesModule,
     BookUseCasesModule,
     AuthorUseCasesModule,
@@ -20,10 +24,7 @@ import { CrmServicesModule } from './services/crm-services/crm-services.module';
     CrmServicesModule,
   ],
   controllers: [
-    AppController,
-    BookController,
-    AuthorController,
-    GenreController,
+    AppController
   ],
   providers: [],
 })
