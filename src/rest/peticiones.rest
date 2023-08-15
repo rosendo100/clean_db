@@ -11,7 +11,7 @@ GET  http://localhost:3000/api/author
 content-type: application/json
 
 ### get ID
-GET  http://localhost:3000/api/author/6
+GET  http://localhost:3000/api/author/2
 content-type: application/json
 
 ###
@@ -19,6 +19,6 @@ PUT http://localhost:3000/api/author/1
 content-type: application/json
 
 {
-    "firstName": "name300",
+    "firstName": "name30000",
     "lastName": "last300"
 }
